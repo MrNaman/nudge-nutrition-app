@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useToast } from "@/hooks/use-toast";
 import { MacroResults } from "./MacroResults";
 import { calculateMacros, type UserData, type MacroData } from "@/lib/macroCalculations";
 
@@ -20,17 +21,58 @@ export const MacroCalculator = () => {
   
   const [results, setResults] = useState<MacroData | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submitted with data:', userData);
     
-    if (!userData.gender || !userData.height || !userData.weight || !userData.age || !userData.activityLevel || !userData.goal) {
+    // Check for missing fields and show specific error messages
+    const missingFields = [];
+    if (!userData.gender) missingFields.push("Gender");
+    if (!userData.height) missingFields.push("Height");
+    if (!userData.weight) missingFields.push("Weight");
+    if (!userData.age) missingFields.push("Age");
+    if (!userData.activityLevel) missingFields.push("Activity Level");
+    if (!userData.goal) missingFields.push("Goal");
+
+    if (missingFields.length > 0) {
+      toast({
+        title: "Missing Information",
+        description: `Please fill in: ${missingFields.join(", ")}`,
+        variant: "destructive",
+      });
       return;
     }
 
-    const macroData = calculateMacros(userData);
-    setResults(macroData);
-    setShowResults(true);
+    setIsCalculating(true);
+    
+    // Simulate calculation time for better UX
+    setTimeout(() => {
+      try {
+        console.log('Calculating macros...');
+        const macroData = calculateMacros(userData);
+        console.log('Calculation result:', macroData);
+        
+        setResults(macroData);
+        setShowResults(true);
+        
+        toast({
+          title: "Success!",
+          description: "Your macro plan has been calculated.",
+        });
+      } catch (error) {
+        console.error('Calculation error:', error);
+        toast({
+          title: "Calculation Error",
+          description: "There was an error calculating your macros. Please try again.",
+          variant: "destructive",
+        });
+      } finally {
+        setIsCalculating(false);
+      }
+    }, 500);
   };
 
   const resetForm = () => {
@@ -60,7 +102,7 @@ export const MacroCalculator = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Gender */}
               <div className="space-y-3">
-                <Label className="text-base font-medium">Gender</Label>
+                <Label className="text-base font-medium">Gender *</Label>
                 <RadioGroup
                   value={userData.gender}
                   onValueChange={(value) => setUserData(prev => ({ ...prev, gender: value }))}
@@ -80,7 +122,7 @@ export const MacroCalculator = () => {
               {/* Age, Height, Weight */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="age">Age (years)</Label>
+                  <Label htmlFor="age">Age (years) *</Label>
                   <Input
                     id="age"
                     type="number"
@@ -91,7 +133,7 @@ export const MacroCalculator = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="height">Height (cm)</Label>
+                  <Label htmlFor="height">Height (cm) *</Label>
                   <Input
                     id="height"
                     type="number"
@@ -102,7 +144,7 @@ export const MacroCalculator = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="weight">Weight (kg)</Label>
+                  <Label htmlFor="weight">Weight (kg) *</Label>
                   <Input
                     id="weight"
                     type="number"
@@ -115,7 +157,7 @@ export const MacroCalculator = () => {
 
               {/* Activity Level */}
               <div className="space-y-3">
-                <Label>Activity Level</Label>
+                <Label>Activity Level *</Label>
                 <Select
                   value={userData.activityLevel}
                   onValueChange={(value) => setUserData(prev => ({ ...prev, activityLevel: value }))}
@@ -135,7 +177,7 @@ export const MacroCalculator = () => {
 
               {/* Goal */}
               <div className="space-y-3">
-                <Label>Goal</Label>
+                <Label>Goal *</Label>
                 <Select
                   value={userData.goal}
                   onValueChange={(value) => setUserData(prev => ({ ...prev, goal: value }))}
@@ -153,10 +195,11 @@ export const MacroCalculator = () => {
 
               <Button 
                 type="submit" 
+                disabled={isCalculating}
                 className="w-full bg-gradient-primary hover:shadow-green transition-all duration-300 text-white font-semibold py-3 text-lg"
                 size="lg"
               >
-                Calculate My Macros
+                {isCalculating ? "Calculating..." : "Calculate My Macros"}
               </Button>
             </form>
           </CardContent>
