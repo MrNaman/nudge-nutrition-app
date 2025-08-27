@@ -62,14 +62,16 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				orange: {
-					primary: 'hsl(var(--orange-primary))',
-					light: 'hsl(var(--orange-light))',
-					dark: 'hsl(var(--orange-dark))'
+				green: {
+					primary: 'hsl(var(--green-primary))',
+					light: 'hsl(var(--green-light))',
+					dark: 'hsl(var(--green-dark))',
+					accent: 'hsl(var(--green-accent))'
 				},
 				black: {
 					primary: 'hsl(var(--black-primary))',
-					light: 'hsl(var(--black-light))'
+					light: 'hsl(var(--black-light))',
+					medium: 'hsl(var(--black-medium))'
 				},
 				gray: {
 					light: 'hsl(var(--gray-light))',
@@ -78,10 +80,12 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-primary': 'var(--gradient-primary)',
-				'gradient-card': 'var(--gradient-card)'
+				'gradient-secondary': 'var(--gradient-secondary)',
+				'gradient-card': 'var(--gradient-card)',
+				'gradient-dark': 'var(--gradient-dark)'
 			},
 			boxShadow: {
-				'orange': 'var(--shadow-orange)',
+				'green': 'var(--shadow-green)',
 				'card': 'var(--shadow-card)'
 			},
 			transitionProperty: {

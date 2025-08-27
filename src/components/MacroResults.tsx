@@ -33,7 +33,7 @@ export const MacroResults = ({ data, onReset }: MacroResultsProps) => {
           {/* Daily Calories */}
           <Card className="shadow-card border-0">
             <CardHeader className="text-center pb-3">
-              <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
+              <div className="w-12 h-12 bg-gradient-secondary rounded-full flex items-center justify-center mx-auto mb-2">
                 <Target className="h-6 w-6 text-white" />
               </div>
               <CardTitle className="text-xl">Daily Calories</CardTitle>
@@ -52,7 +52,7 @@ export const MacroResults = ({ data, onReset }: MacroResultsProps) => {
           {/* Recommended Meals */}
           <Card className="shadow-card border-0">
             <CardHeader className="text-center pb-3">
-              <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
+              <div className="w-12 h-12 bg-gradient-secondary rounded-full flex items-center justify-center mx-auto mb-2">
                 <Utensils className="h-6 w-6 text-white" />
               </div>
               <CardTitle className="text-xl">Meal Schedule</CardTitle>
@@ -72,7 +72,7 @@ export const MacroResults = ({ data, onReset }: MacroResultsProps) => {
         {/* Macronutrients Breakdown */}
         <Card className="shadow-card border-0">
           <CardHeader className="text-center">
-            <div className="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-2">
+            <div className="w-12 h-12 bg-gradient-secondary rounded-full flex items-center justify-center mx-auto mb-2">
               <Activity className="h-6 w-6 text-white" />
             </div>
             <CardTitle className="text-2xl">Macronutrient Breakdown</CardTitle>

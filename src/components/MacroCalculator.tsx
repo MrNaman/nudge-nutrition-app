@@ -153,7 +153,7 @@ export const MacroCalculator = () => {
 
               <Button 
                 type="submit" 
-                className="w-full bg-gradient-primary hover:shadow-orange transition-all duration-300 text-white font-semibold py-3 text-lg"
+                className="w-full bg-gradient-primary hover:shadow-green transition-all duration-300 text-white font-semibold py-3 text-lg"
                 size="lg"
               >
                 Calculate My Macros
